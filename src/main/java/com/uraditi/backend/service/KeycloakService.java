@@ -44,9 +44,9 @@ public class KeycloakService {
         return keycloakClient.delete(token, id);
     }
 
-    public Object save(UserRepresentation user) {
+    public String save(UserRepresentation user) {
         checkExpiredToken();
-        return keycloakClient.save(token, user);
+        return keycloakClient.save(user);
     }
 
     public List<UserRepresentation> findByUsername(String username, boolean exact) {
