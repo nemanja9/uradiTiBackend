@@ -16,11 +16,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-
-    public UserDto giveUserTest() {
-        return UserDto.builder().id(123L).email("nemanja@nemanja.com").build();
-    }
-
     public UserDto save(UserDto userDto) {
         var saved = userRepository.save(ModelMapperUtils.map(userDto, UserEntity.class));
         return ModelMapperUtils.map(saved, UserDto.class);

@@ -83,6 +83,13 @@
 			<version>2.6.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.keycloak/keycloak-admin-client -->
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-admin-client</artifactId>
+			<version>16.1.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<!--	keycloak-->
