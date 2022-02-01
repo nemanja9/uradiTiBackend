@@ -1,5 +1,6 @@
 package com.uraditi.backend.service;
 
+import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
 import com.uraditi.backend.dto.UserDto;
 import com.uraditi.backend.entity.UserEntity;
@@ -25,7 +26,7 @@ public class UserService {
     @Value("${com.uraditi.created.user.url}")
     String urlCreatedUser;
 
-    public UserDto save(UserDto userDto) {
+    public UserDto save(CreateUserDto userDto) {
         // check if a user with the given email already exists in keycloak
         var usersInKeycloak = keycloakService.findForUsername(userDto.getEmail());
         if (usersInKeycloak.size() != 0) {
