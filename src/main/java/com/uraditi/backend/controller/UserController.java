@@ -1,6 +1,7 @@
 package com.uraditi.backend.controller;
 
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
+import com.uraditi.backend.dto.UserDto;
 import com.uraditi.backend.service.UserService;
 import com.uraditi.backend.service.keycloak.UserKeycloakService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,12 @@ public class UserController {
     public ResponseEntity<Response> createUser(@RequestBody @NotNull KeycloakUserRequestDto userToCreate) {
         userKeycloakService.create(userToCreate);
         return ResponseEntity.ok(userKeycloakService.create(userToCreate));
+    }
+
+    @PostMapping("/save")
+    @RolesAllowed("uradiTi_admin")
+    public ResponseEntity<UserDto> saveUser(@RequestBody @NotNull UserDto userToCreate) {
+        return ResponseEntity.ok(userService.save(userToCreate));
     }
 
     @GetMapping("/{username}")

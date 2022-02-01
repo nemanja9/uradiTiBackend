@@ -1,13 +1,15 @@
 package com.uraditi.backend.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
-@Data
 @Builder
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class UserDto {
 
-    private Long id;
+    private String id;
     private String email;
     private String password;
 }

@@ -53,6 +53,8 @@ public class UserKeycloakService {
     private UserRepresentation prepareUserRepresentation(KeycloakUserRequestDto request, CredentialRepresentation cR) {
         var newUser = new UserRepresentation();
         newUser.setUsername(request.getUsername());
+        newUser.setEmail(newUser.getEmail());
+        newUser.setEmailVerified(false);
         newUser.setEnabled(true);
         newUser.setCredentials(List.of(cR));
         return newUser;
