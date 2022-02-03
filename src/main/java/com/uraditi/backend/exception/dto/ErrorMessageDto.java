@@ -1,7 +1,10 @@
-package com.uraditi.backend.exception;
+package com.uraditi.backend.exception.dto;
 
 //import io.swagger.annotations.ApiModelProperty;
 
+import com.uraditi.backend.exception.ApiException;
+import com.uraditi.backend.exception.ErrorCode;
+import com.uraditi.backend.exception.ExceptionUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

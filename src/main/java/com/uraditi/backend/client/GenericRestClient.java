@@ -10,6 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -156,8 +157,10 @@ public abstract class GenericRestClient {
 
             return restTemplate.postForEntity(url, entity, type, new HashMap<>());
 
-        } catch (Exception e) {
+        } catch (HttpClientErrorException e) {
             LOGGER.error("Error while executing post", e);
+            throw ApiExceptionFactory.genericError(e.getStatusCode(), e.getMessage());
+        } catch (Exception e) {
             throw ApiExceptionFactory.genericError(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
         }
     }

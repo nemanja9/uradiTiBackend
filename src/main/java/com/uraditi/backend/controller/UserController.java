@@ -4,6 +4,8 @@ import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.UserDto;
 import com.uraditi.backend.service.UserService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,10 @@ public class UserController {
     }
 
     @PostMapping("/log-in")
+    @ApiResponses({
+            @ApiResponse(responseCode = "401", description = "Username or password not correct"),
+            @ApiResponse(responseCode = "200", description = "User logged in")
+    })
     public ResponseEntity<AuthenticationResponseDto> logInUser(@RequestBody @NotNull UserDto userToCreate) {
         return ResponseEntity.ok(userService.loginUser(userToCreate));
     }

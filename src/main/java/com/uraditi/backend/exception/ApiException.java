@@ -1,5 +1,6 @@
 package com.uraditi.backend.exception;
 
+import com.uraditi.backend.exception.dto.ErrorMessageDto;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
