@@ -1,5 +1,6 @@
 package com.uraditi.backend.controller;
 
+import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.UserDto;
 import com.uraditi.backend.service.UserService;
@@ -27,5 +28,10 @@ public class UserController {
     @RolesAllowed("uradiTi_admin")
     public ResponseEntity<UserDto> saveUser(@RequestBody @NotNull CreateUserDto userToCreate) {
         return ResponseEntity.ok(userService.save(userToCreate));
+    }
+
+    @PostMapping("/log-in")
+    public ResponseEntity<AuthenticationResponseDto> logInUser(@RequestBody @NotNull UserDto userToCreate) {
+        return ResponseEntity.ok(userService.loginUser(userToCreate));
     }
 }

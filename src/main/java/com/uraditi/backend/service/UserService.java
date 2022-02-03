@@ -1,5 +1,6 @@
 package com.uraditi.backend.service;
 
+import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
 import com.uraditi.backend.dto.UserDto;
@@ -55,5 +56,9 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         return ModelMapperUtils.mapAll(userRepository.findAll(), UserDto.class);
+    }
+
+    public AuthenticationResponseDto loginUser(UserDto user) {
+        return keycloakService.loginUser(user);
     }
 }

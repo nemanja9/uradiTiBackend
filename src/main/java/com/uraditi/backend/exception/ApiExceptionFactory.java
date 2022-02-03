@@ -31,4 +31,8 @@ public class ApiExceptionFactory {
     public static ApiException serverError(String message) {
         return new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.INTERNAL_SERVER_ERROR, message);
     }
+
+    public static ApiException genericError(HttpStatus httpStatus, String message) {
+        return new ApiException(httpStatus, ErrorCode.GENERIC_CLIENT_ERROR, message);
+    }
 }
