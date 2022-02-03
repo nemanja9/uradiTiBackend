@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -45,7 +46,7 @@ public class UserService {
         var keycloakCreatedId = keycloakResponse.getMetadata().get("Location").get(0).toString().replace(urlCreatedUser, "");
         // saving user into our db
         var userToSave = UserEntity.builder()
-                .id(keycloakCreatedId)
+                .id(UUID.fromString(keycloakCreatedId))
                 .email(userDto.getEmail())
                 .build();
         var saved = userRepository.save(userToSave);
