@@ -3,6 +3,7 @@ package com.uraditi.backend.controller;
 import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.UserDto;
+import com.uraditi.backend.dto.UserLoginDto;
 import com.uraditi.backend.service.UserService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -41,7 +42,7 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "Username or password not correct"),
             @ApiResponse(responseCode = "200", description = "User logged in")
     })
-    public ResponseEntity<AuthenticationResponseDto> logInUser(@RequestBody @NotNull UserDto userToCreate) {
-        return ResponseEntity.ok(userService.loginUser(userToCreate));
+    public ResponseEntity<AuthenticationResponseDto> logInUser(@RequestBody @NotNull UserLoginDto user) {
+        return ResponseEntity.ok(userService.loginUser(user));
     }
 }

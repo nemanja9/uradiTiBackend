@@ -1,11 +1,15 @@
 package com.uraditi.backend.dto;
 
 import com.uraditi.backend.dto.enums.TaskStatusEnum;
-import lombok.Data;
+import lombok.*;
 
 import java.sql.Timestamp;
 
-@Data
+@Builder
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public class TaskDto {
     Long id;
     CategoryDto category;

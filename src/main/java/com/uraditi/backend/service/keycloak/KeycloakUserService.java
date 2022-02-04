@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.uraditi.backend.client.RestClient;
 import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
-import com.uraditi.backend.dto.UserDto;
+import com.uraditi.backend.dto.UserLoginDto;
 import com.uraditi.backend.exception.ApiExceptionFactory;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class UserKeycloakService {
+public class KeycloakUserService {
 
     private final Keycloak keycloak;
     private final RestClient restClient;
@@ -65,14 +65,22 @@ public class UserKeycloakService {
                 .delete(id);
     }
 
-    public List<UserRepresentation> findForUsername(String username) {
+    public List<UserRepresentation> findByUsername(String username) {
         return keycloak
                 .realm(realm)
                 .users()
                 .search(username);
     }
 
-    public AuthenticationResponseDto loginUser(UserDto userDto) {
+    public UserRepresentation findById(String id) {
+        return keycloak
+                .realm(realm)
+                .users()
+                .get(id)
+                .toRepresentation();
+    }
+
+    public AuthenticationResponseDto loginUser(UserLoginDto userDto) {
         ObjectNode auth = mapper.createObjectNode();
         auth.put("grant_type", "password");
         auth.put("client_id", clientId);

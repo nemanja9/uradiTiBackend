@@ -1,13 +1,10 @@
 package com.uraditi.backend.service;
 
-import com.uraditi.backend.dto.AuthenticationResponseDto;
-import com.uraditi.backend.dto.CreateUserDto;
-import com.uraditi.backend.dto.KeycloakUserRequestDto;
-import com.uraditi.backend.dto.UserDto;
+import com.uraditi.backend.dto.*;
 import com.uraditi.backend.entity.UserEntity;
 import com.uraditi.backend.exception.ApiExceptionFactory;
 import com.uraditi.backend.repository.UserRepository;
-import com.uraditi.backend.service.keycloak.UserKeycloakService;
+import com.uraditi.backend.service.keycloak.KeycloakUserService;
 import com.uraditi.backend.utils.ModelMapperUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +14,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserKeycloakService keycloakService;
+    private final KeycloakUserService keycloakService;
 
     @Value("${com.uraditi.keycloak.user.role}")
     String userRole;
@@ -33,7 +31,7 @@ public class UserService {
 
     public UserDto save(CreateUserDto userDto) {
         // check if a user with the given email already exists in keycloak
-        var usersInKeycloak = keycloakService.findForUsername(userDto.getEmail());
+        var usersInKeycloak = keycloakService.findByUsername(userDto.getEmail());
         if (usersInKeycloak.size() != 0) {
             throw ApiExceptionFactory.conflict("User with the given email already exists");
         }
@@ -63,7 +61,24 @@ public class UserService {
         return ModelMapperUtils.mapAll(userRepository.findAll(), UserDto.class);
     }
 
-    public AuthenticationResponseDto loginUser(UserDto user) {
+    public AuthenticationResponseDto loginUser(UserLoginDto user) {
         return keycloakService.loginUser(user);
+    }
+
+    public void importIntoDb() {
+        var keycloakUsers = keycloakService.findAll();
+        var dbUsers = userRepository.findAll();
+
+        var idsKeycloak = keycloakUsers.stream().map(x -> UUID.fromString(x.getId())).collect(Collectors.toList());
+        var idsDb = dbUsers.stream().map(x -> x.getId()).collect(Collectors.toList());
+
+        keycloakUsers.forEach(keycloakUser -> {
+            if (!idsDb.contains(UUID.fromString(keycloakUser.getId()))) {
+                userRepository.save(UserEntity.builder()
+                        .id(UUID.fromString(keycloakUser.getId()))
+                        .email(keycloakUser.getEmail())
+                        .build());
+            }
+        });
     }
 }
