@@ -6,6 +6,7 @@ import com.uraditi.backend.client.RestClient;
 import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
 import com.uraditi.backend.dto.UserDto;
+import com.uraditi.backend.exception.ApiExceptionFactory;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -27,6 +28,7 @@ public class UserKeycloakService {
     private final Keycloak keycloak;
     private final RestClient restClient;
     private final ObjectMapper mapper;
+    private final KeycloakRoleService keycloakRoleService;
 
     @Value("${keycloak.realm}")
     private String realm;
@@ -111,4 +113,23 @@ public class UserKeycloakService {
         return cR;
     }
 
+    /**
+     * Assigns user a role based on user id and role name, throws 404 if role doesn't exist
+     *
+     * @param userId
+     * @param roleName
+     */
+    public void assignRole(String userId, String roleName) {
+        var role = keycloakRoleService.findByRoleName(roleName);
+        if (role == null) {
+            throw ApiExceptionFactory.notFound("Role " + roleName + " not found");
+        }
+        keycloak
+                .realm(realm)
+                .users()
+                .get(userId)
+                .roles()
+                .realmLevel()
+                .add(List.of(role));
+    }
 }

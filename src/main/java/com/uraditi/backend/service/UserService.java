@@ -25,6 +25,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserKeycloakService keycloakService;
 
+    @Value("${com.uraditi.keycloak.user.role}")
+    String userRole;
+
     @Value("${com.uraditi.created.user.url}")
     String urlCreatedUser;
 
@@ -45,6 +48,8 @@ public class UserService {
         }
         // taking created user id from response
         var keycloakCreatedId = keycloakResponse.getMetadata().get("Location").get(0).toString().replace(urlCreatedUser, "");
+        // assigning user role to the new user
+        keycloakService.assignRole(keycloakCreatedId, userRole);
         // saving user into our db
         var userToSave = UserEntity.builder()
                 .id(UUID.fromString(keycloakCreatedId))

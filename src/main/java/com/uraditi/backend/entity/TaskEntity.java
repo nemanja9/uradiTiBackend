@@ -1,7 +1,7 @@
 package com.uraditi.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.uraditi.backend.dto.TaskStatusEnum;
+import com.uraditi.backend.dto.enums.TaskStatusEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -55,15 +55,13 @@ public class TaskEntity {
 
     // rating that the tasker got for the job done
     @Column(name = "tasker_rating")
-    String taskerRating;
+    Double taskerRating;
 
-    // latitude of the task, TODO to be changed into more appropriate type
     @Column(name = "latitude")
-    String latitude;
+    Double latitude;
 
-    // longitude of the task, TODO to be changed into more appropriate type
     @Column(name = "longitude")
-    String longitude;
+    Double longitude;
 
     // review that the tasker got for the job done
     @Column(name = "tasker_review")

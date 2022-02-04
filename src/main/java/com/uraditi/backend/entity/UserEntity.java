@@ -1,8 +1,8 @@
 package com.uraditi.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.uraditi.backend.dto.UserStatusEnum;
-import com.uraditi.backend.dto.UserTypeEnum;
+import com.uraditi.backend.dto.enums.UserStatusEnum;
+import com.uraditi.backend.dto.enums.UserTypeEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,15 +48,13 @@ public class UserEntity {
     UserStatusEnum userStatus;
 
     @Column(name = "rating")
-    double rating;
+    Double rating;
 
-    // latitude of the task, TODO to be changed into more appropriate type
     @Column(name = "latitude")
-    String latitude;
+    Double latitude;
 
-    // longitude of the task, TODO to be changed into more appropriate type
     @Column(name = "longitude")
-    String longitude;
+    Double longitude;
 
     @Column(name = "phone")
     String phone;
