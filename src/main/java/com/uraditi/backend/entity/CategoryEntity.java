@@ -1,10 +1,8 @@
 package com.uraditi.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -26,8 +24,4 @@ public class CategoryEntity {
 
     @Column(name = "licence")
     boolean licence;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    Set<TaskEntity> tasks;
 }
