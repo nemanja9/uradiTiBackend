@@ -1,6 +1,5 @@
-package com.uraditi.backend.controller;
+package com.uraditi.backend.controller.admin;
 
-import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.CreateUserDto;
 import com.uraditi.backend.dto.UserDto;
 import com.uraditi.backend.service.UserService;
@@ -14,18 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.NotNull;
 
-@RestController("User controller")
-@RequestMapping("/api/users")
+@RestController("Admin user controller")
+@RequestMapping("/api/admin/users")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserController {
+public class UserAdminController {
 
     private final UserService userService;
 
-    // http://localhost:8080/swagger-ui/index.html
-
-    @PostMapping("/register")
+    @PostMapping("/save")
+    @RolesAllowed("uradiTi_admin")
     @ApiResponses({
             @ApiResponse(responseCode = "409", description = "Email already exists"),
             @ApiResponse(responseCode = "200", description = "User registered")
@@ -34,12 +33,4 @@ public class UserController {
         return ResponseEntity.ok(userService.save(userToCreate));
     }
 
-    @PostMapping("/log-in")
-    @ApiResponses({
-            @ApiResponse(responseCode = "401", description = "Username or password not correct"),
-            @ApiResponse(responseCode = "200", description = "User logged in")
-    })
-    public ResponseEntity<AuthenticationResponseDto> logInUser(@RequestBody @NotNull UserDto userToCreate) {
-        return ResponseEntity.ok(userService.loginUser(userToCreate));
-    }
 }

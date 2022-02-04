@@ -1,4 +1,4 @@
-package com.uraditi.backend.controller;
+package com.uraditi.backend.controller.admin.keycloak;
 
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
 import com.uraditi.backend.service.keycloak.UserKeycloakService;
