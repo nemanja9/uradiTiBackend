@@ -2,6 +2,7 @@ package com.uraditi.backend.controller.admin.keycloak;
 
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
 import com.uraditi.backend.service.keycloak.UserKeycloakService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController("Keycloak user controller")
+@Tag(name = "Keycloak user controller", description = "Keycloak user operations")
 @RequestMapping("/api/keycloak/users")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class KeycloakUserController {

@@ -4,6 +4,7 @@ import com.uraditi.backend.dto.CategoryDto;
 import com.uraditi.backend.dto.SuccesDto;
 import com.uraditi.backend.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController("Category controller")
 @RequestMapping("/api/categories")
+@Tag(name = "Category controller", description = "Category operations")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CategoryController {
 
