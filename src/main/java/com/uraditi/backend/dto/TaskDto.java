@@ -27,4 +27,5 @@ public class TaskDto {
     String taskerReview;
     // review that the client got for their job
     String clientReview;
+    String city;
 }

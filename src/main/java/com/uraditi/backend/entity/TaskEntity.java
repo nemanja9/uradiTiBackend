@@ -70,4 +70,7 @@ public class TaskEntity {
     // review that the client got for their job
     @Column(name = "client_review")
     String clientReview;
+
+    @Column(name = "city")
+    String city;
 }

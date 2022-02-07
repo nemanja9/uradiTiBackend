@@ -3,6 +3,7 @@ package com.uraditi.backend.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,5 +24,8 @@ public class CategoryEntity {
     String name;
 
     @Column(name = "licence")
-    boolean licence;
+    Boolean licence;
+
+    @OneToMany(mappedBy = "category")
+    Set<CategoryTaskerEntity> categoryTaskerEntities;
 }

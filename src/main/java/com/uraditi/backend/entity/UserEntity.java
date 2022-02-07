@@ -26,6 +26,12 @@ public class UserEntity {
     @Column(name = "email")
     String email;
 
+    @Column(name = "firstName")
+    String firstName;
+
+    @Column(name = "lastName")
+    String lastName;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     Set<TaskEntity> tasksAsClient;
@@ -58,4 +64,10 @@ public class UserEntity {
 
     @Column(name = "phone")
     String phone;
+
+    @Column(name = "city")
+    String city;
+
+    @OneToMany(mappedBy = "tasker")
+    Set<CategoryTaskerEntity> categoryTaskerEntities;
 }

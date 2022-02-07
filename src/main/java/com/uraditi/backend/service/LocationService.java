@@ -28,7 +28,6 @@ public class LocationService {
             if (distancesFromBase.get(s).equals(lowestDistance))
                 return s;
         }
-
         return "N/A";
     }
 }

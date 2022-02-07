@@ -27,4 +27,5 @@ public class UserDto {
     Double longitude;
     String phone;
     String password;
+    String city;
 }
