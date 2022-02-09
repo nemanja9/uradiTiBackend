@@ -20,9 +20,9 @@ public class TaskerCategoryDto {
     String phone;
     String city;
     Long categoryId;
-    double price;
+    Double price;
 
-    public TaskerCategoryDto(UUID id, String firstName, String lastName, String email, String description, UserStatusEnum userStatus, Double rating, Double latitude, Double longitude, String phone, String city, Long categoryId, double price) {
+    public TaskerCategoryDto(UUID id, String firstName, String lastName, String email, String description, UserStatusEnum userStatus, Double rating, Double latitude, Double longitude, String phone, String city, Long categoryId, Double price) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

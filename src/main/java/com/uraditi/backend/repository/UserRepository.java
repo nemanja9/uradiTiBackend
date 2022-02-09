@@ -15,10 +15,6 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 
     List<UserEntity> findAll();
 
-    @Query(value = "select u from UserEntity u join CategoryTaskerEntity ct on ct.tasker = u where u.city= :city and ct.category.id= :categoryId")
-    List<UserEntity> findTaskersByCategoryAndCity(@Param("categoryId") Long categoryId,
-                                                  @Param("city") String city);
-
     @Query(value = "select new com.uraditi.backend.dto.TaskerCategoryDto(u.id, u.firstName, u.lastName, u.email, u.description," +
             " u.userStatus, u.rating, u.latitude, u.longitude, u.phone, u.city, ct.category.id, ct.price) " +
             "from UserEntity u " +
@@ -28,5 +24,38 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
             "and ct.category.id= :categoryId")
     List<TaskerCategoryDto> findTaskersByCategoryAndCityDto(@Param("categoryId") Long categoryId,
                                                             @Param("city") String city);
+
+    @Query(value = "select new com.uraditi.backend.dto.TaskerCategoryDto(u.id, u.firstName, u.lastName, u.email, u.description," +
+            " u.userStatus, u.rating, u.latitude, u.longitude, u.phone, u.city, ct.category.id, ct.price) " +
+            "from UserEntity u " +
+            "join CategoryTaskerEntity ct " +
+            "on ct.tasker = u " +
+            "where u.city= :city " +
+            "and ct.category.id= :categoryId " +
+            "order by u.rating DESC NULLS LAST")
+    List<TaskerCategoryDto> findTaskersByCategoryAndCityDtoOrderedByRating(@Param("categoryId") Long categoryId,
+                                                                           @Param("city") String city);
+
+    @Query(value = "select new com.uraditi.backend.dto.TaskerCategoryDto(u.id, u.firstName, u.lastName, u.email, u.description," +
+            " u.userStatus, u.rating, u.latitude, u.longitude, u.phone, u.city, ct.category.id, ct.price) " +
+            "from UserEntity u " +
+            "join CategoryTaskerEntity ct " +
+            "on ct.tasker = u " +
+            "where u.city= :city " +
+            "and ct.category.id= :categoryId " +
+            "order by ct.price ASC")
+    List<TaskerCategoryDto> findTaskersByCategoryAndCityDtoOrderedByPrice(@Param("categoryId") Long categoryId,
+                                                                          @Param("city") String city);
+
+    @Query(value = "select new com.uraditi.backend.dto.TaskerCategoryDto(u.id, u.firstName, u.lastName, u.email, u.description," +
+            " u.userStatus, u.rating, u.latitude, u.longitude, u.phone, u.city, ct.category.id, ct.price) " +
+            "from UserEntity u " +
+            "join CategoryTaskerEntity ct " +
+            "on ct.tasker = u " +
+            "where u.city= :city " +
+            "and ct.category.id= :categoryId " +
+            "order by u.numberOfTasks desc nulls last")
+    List<TaskerCategoryDto> findTaskersByCategoryAndCityDtoOrderedByNumberOfTasks(@Param("categoryId") Long categoryId,
+                                                                                  @Param("city") String city);
 
 }
