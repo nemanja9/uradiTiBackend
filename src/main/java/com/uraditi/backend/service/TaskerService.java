@@ -28,7 +28,6 @@ public class TaskerService {
                 return userRepository.findTaskersByCategoryAndCityDtoOrderedByPrice(categoryId, city);
             case "distance":
                 var unsorted = userRepository.findTaskersByCategoryAndCityDto(categoryId, city);
-                // todo zameniti lokaciju sa pravom lokacijom
                 return locationService.sortTaskers(new LocationDto(latitude, longitude, "HOME"), unsorted);
             case "numberOfTasks":
                 return userRepository.findTaskersByCategoryAndCityDtoOrderedByNumberOfTasks(categoryId, city);
