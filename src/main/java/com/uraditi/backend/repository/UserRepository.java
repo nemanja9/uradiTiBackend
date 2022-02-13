@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -57,5 +58,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
             "order by u.numberOfTasks desc nulls last")
     List<TaskerCategoryDto> findTaskersByCategoryAndCityDtoOrderedByNumberOfTasks(@Param("categoryId") Long categoryId,
                                                                                   @Param("city") String city);
+
+    Optional<UserEntity> findByEmail(@Param("email") String email);
 
 }

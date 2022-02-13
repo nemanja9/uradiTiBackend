@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.uraditi.backend.client.RestClient;
 import com.uraditi.backend.dto.AuthenticationResponseDto;
 import com.uraditi.backend.dto.KeycloakUserRequestDto;
+import com.uraditi.backend.dto.SuccesDto;
 import com.uraditi.backend.dto.UserLoginDto;
 import com.uraditi.backend.exception.ApiExceptionFactory;
 import lombok.RequiredArgsConstructor;
@@ -139,5 +140,21 @@ public class KeycloakUserService {
                 .roles()
                 .realmLevel()
                 .add(List.of(role));
+    }
+
+    public SuccesDto sendEmailConfirmation(String userId) {
+        keycloak.realm(realm)
+                .users()
+                .get(userId)
+                .sendVerifyEmail();
+        return new SuccesDto(true);
+    }
+
+    public SuccesDto sendPasswordResetEmail(String userId) {
+        keycloak.realm(realm)
+                .users()
+                .get(userId)
+                .resetPasswordEmail();
+        return new SuccesDto(true);
     }
 }

@@ -81,4 +81,14 @@ public class UserService {
             }
         });
     }
+
+    public SuccesDto sendEmailConfirmation(String userId) {
+        userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> ApiExceptionFactory.notFound("User not found"));
+        return keycloakService.sendEmailConfirmation(userId);
+    }
+
+    public SuccesDto sendPasswordResetEmail(String email) {
+        var user = userRepository.findByEmail(email).orElseThrow(() -> ApiExceptionFactory.notFound("User not found"));
+        return keycloakService.sendPasswordResetEmail(user.getId().toString());
+    }
 }

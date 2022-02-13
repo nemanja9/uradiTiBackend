@@ -37,7 +37,6 @@ public class UserEntity {
     Set<TaskEntity> tasksAsClient;
 
     @JsonManagedReference
-    @OrderBy("count(all) ASC")
     @OneToMany(mappedBy = "tasker", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     Set<TaskEntity> tasksAsTasker;
 
