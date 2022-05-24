@@ -34,7 +34,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'azureDev'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
