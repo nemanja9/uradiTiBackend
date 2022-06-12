@@ -42,5 +42,9 @@ public class CategoryController {
         return ResponseEntity.ok(new SuccesDto(true));
     }
 
-
+    @GetMapping("/description")
+    @Operation(description = "Returns a description for a given category id")
+    public ResponseEntity<String> getDescription(@RequestParam Long id) {
+        return ResponseEntity.ok(categoryService.getDescription(id));
+    }
 }

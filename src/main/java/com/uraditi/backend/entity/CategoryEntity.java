@@ -28,4 +28,7 @@ public class CategoryEntity {
 
     @OneToMany(mappedBy = "category")
     Set<CategoryTaskerEntity> categoryTaskerEntities;
+
+    @Column(name = "description")
+    String description;
 }
