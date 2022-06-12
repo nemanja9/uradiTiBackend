@@ -62,6 +62,9 @@ public class FileService {
         try {
             String rootPath = filesPath + File.separator + type.name().toLowerCase();
             File imgDir = new File(rootPath + File.separator + entityId);
+            if (imgDir.listFiles() == null) {
+                throw ApiExceptionFactory.notFound("File couldn't be found");
+            }
             for (File file : imgDir.listFiles()) {
                 image = Files.readAllBytes(file.toPath().toAbsolutePath());
                 fileName = file.getName();
